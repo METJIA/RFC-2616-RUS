@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.0.2" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Протокол передачи гипертекста HTTP/1.1</title>
+
+<!-- Text Class Preamble -->
+<style type="text/css">
+div.toc {
+margin: 2em 0em;
+border-style: solid;
+border-width: 2px 0px;
+padding: 1em 0em;
+}
+div.tochead { font-size: x-large; font-weight: bold; }
+div.lyxtoc-0 {
+margin: 2em 0em 0em 0em;
+font-size: xx-large;
+font-weight: bold;
+}
+div.lyxtoc-1 {
+margin: 1em 0em 0em 0em;
+font-size: x-large;
+font-weight: bold;
+}
+div.lyxtoc-2 {
+margin: 0em 0em 0em 1em;
+font-size: large;
+font-weight: normal;
+}
+div.lyxtoc-3 { margin: 0em 0em 0em 0.5em; font-size: medium; }
+div.lyxtoc-4 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-5 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-6 { margin: 0em 0em 0em 0.5em; }
+a.tocentry {
+text-decoration: none;
+color: black;
+}
+a.tocentry:visited { color: black; }
+a.tocarrow {
+font-weight: bold;
+text-decoration: none;
+color: #909090;
+}
+a.tocarrow:visited { color: #C0C0C0; }
+</style>
+
+<!-- Preamble Snippets -->
+<style type="text/css">
+table { border: 1px solid black; display: inline-block; }
+td { border: 1px solid black; padding: 0.5ex; }
+</style>
+
+<!-- Layout-provided Styles -->
+<style type='text/css'>
+h1.title {
+font-size: x-large;
+margin-bottom: 1ex;
+text-align: center;
+
+}
+div.author {
+font-size: large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: center;
+
+}
+div.right_address {
+margin-bottom: 1.5ex;
+text-align: left;
+
+}
+h3.subsection_ {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+div.standard {
+margin-bottom: 2ex;
+}
+h2.section {
+font-weight: bold;
+font-size: x-large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: left;
+
+}
+h3.subsection {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+div.plain_layout {
+text-align: left;
+
+}
+div.lyx_code {
+font-family: monospace;
+margin-top: 0.5ex;
+margin-bottom: 0.5ex;
+margin-left: 3ex;
+margin-right: 3ex;
+text-align: left;
+
+}
+</style>
+</head>
+<body>
+<h1 class="title"><a id='magicparlabel-3' />
+Протокол передачи гипертекста HTTP/1.1</h1>
+<div class="author"><a id='magicparlabel-4' />
+RFC 2616 (rus)</div>
+<div class="right_address"><a id='magicparlabel-5' />
+перевод: Orel Sokolov (aka vk.com/orelsokolov)</div>
+<h3 class="subsection_"><a id='magicparlabel-6' />
+Статус этой заметки</h3>
+<div class="standard"><a id='magicparlabel-7' />
+Этот документ указывает стандарты track-простокола Интернета для интернет-сообщества, и требует дискуссий и предложений по улучшению. Пожалуйста, обратитесь к текущему изданию &ldquo;Internet Official Protocol Standards&rdquo; (STD 1) для стандартизации состояния и статуса протокола. На распространение этого документа нет ограничений. </div>
+<h3 class="subsection_"><a id='magicparlabel-8' />
+Краткое содержание</h3>
+<div class="standard"><a id='magicparlabel-9' />
+Протокол передачи гипертекста (HTTP) является протоколом прикладного уровня для распределенных, совмещеных, гипермедиа информационных систем. Это общий, ничего точно не определяющий, протокол, который может быть использован для множества задач далеко не похожих на использование для гипертекста, таких как имена серверов и для распределенных систем управления объектами, через расширение методов запросов, коды ошибок и заголовки [47]. Чертой HTTP является типизация и согласование представления данных, позволяя системам быть построенными независимо от передаваемых данных.</div>
+
+<div class="standard"><a id='magicparlabel-10' />
+HTTP используется по глобальной инициативе World-Wide Web начиная с 1990. Эта спецификация определяет протокол, названный &ldquo;HTTP/1.1&rdquo;, и это обновление для RFC 2068.</div>
+
+<div class="standard"><a id='magicparlabel-11' />
+</div>
+<div class='toc'><div class='tochead part'>Содержание</div>
+
+
+<div class='lyxtoc-1'><div class='lyxtoc-2'><a href='#magicparlabel-6' class='tocentry'>Статус этой заметки</a> <a href='#magicparlabel-6' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-8' class='tocentry'>Краткое содержание</a> <a href='#magicparlabel-8' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-12' class='tocentry'>1 Введение</a> <a href='#magicparlabel-12' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-13' class='tocentry'>1.1 Назначение</a> <a href='#magicparlabel-13' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-19' class='tocentry'>1.2 Требования</a> <a href='#magicparlabel-19' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-22' class='tocentry'>1.3 Терминология</a> <a href='#magicparlabel-22' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-484' class='tocentry'>1.4 Overall Operation</a> <a href='#magicparlabel-484' class='tocarrow'>&gt;</a></div>
+</div>
+</div>
+
+<h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-12' />
+Введение</h2>
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-13' />
+Назначение</h3>
+<div class="standard"><a id='magicparlabel-14' />
+Протокол передачи гипертекста (HTTP) является протоколом прикладного уровня для распределеных, совмещенных, гипермедиа информационных систем. HTTP используется по глобальной инициативе W3 с 1990. Первая версия протокола HTTP, названная как HTTP/0.9, была простым протоколом для необработанной передачи данных через интернет. HTTP/1.0, определенный RFC 1945 [6], улучшил протокол, позволив сообщениям быть в формате MIME-подобных сообщений, содержать метаинформацию о передаваемых данных и имел модифиированную семантику вопросов-ответов. Однако HTTP/1.0 не достаточно учитывает эффекты иерархии прокси, кэширование, потребность в устойчивом соединении, или виртуальных хостов. В дополнение, распространение частично-реализованных приложений на протоколе HTTP/1.0 потребовало сменить версию протокола, чтобы два взаимодействующих приложения могли определить реальные способности каждого. </div>
+
+<div class="standard"><a id='magicparlabel-15' />
+Спецификация определяет протокол, названный как "HTTP/1.1&rdquo;. Этот протокол включает больше строгих требований, чем HTTP/1.0 для того, чтобы гарантировать надежную реализацию его характеристик. </div>
+
+<div class="standard"><a id='magicparlabel-16' />
+На практие информационные системы требуют больше функциональности, чем простое извлечение информации, включая поиск, обновление интерфейса, и составление примечаний. HTTP допускает неограниченные набор методов и заголовков, которые раскрывают назначение запроса [47].</div>
+
+<div class="standard"><a id='magicparlabel-17' />
+Он основывается на порядке ссылок предоставляемых уникальным индентификатором ресурса (URI) [3], расположением (URL)[4], или именем (URN)[20], для индикации ресурса, к которому метод применен. Сообщения передаются в формате похожем на тот, который используется интернетовской почтой [9], как это определено Multipurpose Internet Mail Extensions (MIME) [7].</div>
+
+<div class="standard"><a id='magicparlabel-18' />
+HTTP также используется как основной протокол для связи между user-агентами и прокси/шлюзами в другие интернет системы, включая поддержку тех с помощью протоколов SMTP [16], NNTP[13], FTP[18], Gopher[2], и WAIS[10]. В этом случае, HTTP разрешает базовый гипермедия доступ к ресурсам, доступным из разных приложений. </div>
+<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-19' />
+Требования</h3>
+<div class="standard"><a id='magicparlabel-20' />
+Ключевые слова "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", и "OPTIONAL" в этом документе дожны интерпретироваться как описано в <a href="http://rfc2616-rus.narod2.ru/rfc2119.xhtml">RFC 2119 [34]</a>.</div>
+
+<div class="standard"><a id='magicparlabel-21' />
+Реализация не является совместимой, если она не удовлетворяет одному или более MUST или REQUIRED уровням требований для реализуемого протокола. Реализация, которая удовлетворяет всем MUST или REQUIRED уровням и всем SHOULD уровням требований для этого протокола называется &ldquo;безусловно совместимой&rdquo;; та, что удовлетворяет всем MUST уровням требований, но не всем SHOULD уровням требований для этого протокола, называется &ldquo;условно совместимой&rdquo;.</div>
+<h3 class="subsection"><span class="subsection_label">1.3</span> <a id='magicparlabel-22' />
+Терминология</h3>
+<div class="standard"><a id='magicparlabel-23' />
+This specification uses a number of terms to refer to the roles played by participants in, and objects of, the HTTP communication.</div>
+
+<div class="standard"><a id='magicparlabel-24' />
+
+
+
+
+<div class='longtable' style='text-align: center;'><table><thead><tr><th align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-225' />
+connection</div>
+</th>
+
+<th align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-228' />
+соединение</div>
+</th>
+
+<th align='left' valign='top' rowspan='1'><div class="plain_layout"><a id='magicparlabel-231' />
+Виртуальный канал транспортного уровня, установленный между двумя программами с целью общения.</div>
+</th>
+</tr></thead>
+
+
+<tbody><tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-216' />
+Термин (оригинальный)</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-219' />
+Русское соответствие</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-222' />
+Значение</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-234' />
+message</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-237' />
+сообщение</div>
+</td>
+
+<td align='left' valign='top' rowspan='1'><div class="plain_layout"><a id='magicparlabel-240' />
+Основная единица измерения HTTP коммуникации, состоящая из структурированной последовательности байт, согласованная с синтаксисом, определенным в разделе 4 и переданная через соединение. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-243' />
+request</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-246' />
+запрос</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-249' />
+HTTP сообщение-запрос, как определено в разделе 5. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-252' />
+response</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-255' />
+ответ</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-258' />
+HTTP сообщение-ответ, как определено в разделе 6. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-261' />
+resource</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-264' />
+ресурс</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-267' />
+Сетевой объект или сервис, который может быть идентифицирован с помощью URI, как описано в секции 3.2. Ресурсы могут быть доступны в множестве образов, (например, множественные языки, форматы данных, и разрешения) или изменяться различными способами. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-270' />
+entity</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-273' />
+объект</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-276' />
+Информация, переданная как полезная нагрузка запроса или ответа. Объект состоит из метаинформации, в форме объектов-заголовков полей, и контента в форме объекта-тела, как описано в разделе 7. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-279' />
+representation</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-282' />
+представление</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-285' />
+Объект, включенный в ответ, который является темой для согласования контента, как описано в разделе 12. Здесь может существовать множественное представление, связанное с особыми состояниями ответа. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-288' />
+content negotiation</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-291' />
+обсуждение контента</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-294' />
+Механизм для указания соответсвующего представления, когда обслуживается запрос, как описано в разделе 12. Представление объектов в любом ответе может быть обсуждено (включая ошибочные ответы). </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-297' />
+variant</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-300' />
+вариант</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-303' />
+Ресурс может иметь один, или более одного, представлений, связанных с ним в любой доступный момент времени. Каждый из этих представлений названо "варриант". Использование термина &ldquo;вариант&rdquo; не обезательно означает, что ресурс готов к обсуждать тему контента. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-306' />
+client</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-309' />
+клиент</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-312' />
+Программа, которая устанавливает связь с целью отправки запросов. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-315' />
+user agent</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-318' />
+-</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-321' />
+Клиент, который инициирует запрос. Это часто бывают браузеры, редакторы, пауки (путешествующие по интернету роботы), или другие инструменты конечного пользователя. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-324' />
+server</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-327' />
+сервер</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-330' />
+Прикладная программа, которая принимает соединения для обслуживания запросов путем отправки назад ответов. Любая взятая программа. Any given program may be capable of being both a client and a server; our use of these terms refers only to the role being performed by the program for a particular connection, rather than to the program's capabilities in general. Likewise, any server may act as an origin server, proxy, gateway, or tunnel, switching behavior based on the nature of each request. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-333' />
+origin server</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-336' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-339' />
+The server on which a given resource resides or is to be created.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-342' />
+proxy</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-345' />
+прокси</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-348' />
+An intermediary program which acts as both a server and a client for the purpose of making requests on behalf of other clients. Requests are serviced internally or by passing them on, with possible translation, to other servers. A proxy MUST implement both the client and server requirements of this specification. A "transparent proxy" is a proxy that does not modify the request or response beyond what is required for proxy authentication and identification. A "non-transparent proxy" is a proxy that modifies the request or response in order to provide some added service to the user agent, such as group annotation services, media type transformation, protocol reduction, or anonymity filtering. Except where either transparent or non-transparent behavior is explicitly stated, the HTTP proxy requirements apply to both types of proxies.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-351' />
+gateway</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-354' />
+шлюз</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-357' />
+A server which acts as an intermediary for some other server. Unlike a proxy, a gateway receives requests as if it were the origin server for the requested resource; the requesting client may not be aware that it is communicating with a gateway.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-360' />
+tunnel</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-363' />
+туннель</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-366' />
+An intermediary program which is acting as a blind relay between two connections. Once active, a tunnel is not considered a party to the HTTP communication, though the tunnel may have been initiated by an HTTP request. The tunnel ceases to exist when both ends of the relayed connections are closed. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-369' />
+cache</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-372' />
+кэш</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-375' />
+A program's local store of response messages and the subsystem that controls its message storage, retrieval, and deletion. A cache stores cacheable responses in order to reduce the response time and network bandwidth consumption on future, equivalent requests. Any client or server may include a cache, though a cache cannot be used by a server that is acting as a tunnel.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-378' />
+cacheable</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-381' />
+кэшируемость</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-384' />
+A response is cacheable if a cache is allowed to store a copy of the response message for use in answering subsequent requests. The rules for determining the cacheability of HTTP responses are defined in section 13. Even if a resource is cacheable, there may be additional constraints on whether a cache can use the cached copy for a particular request. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-387' />
+first-hand</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-390' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-393' />
+A response is first-hand if it comes directly and without unnecessary delay from the origin server, perhaps via one or more proxies. A response is also first-hand if its validity has just been checked directly with the origin server.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-396' />
+explicit expiration time</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-399' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-402' />
+The time at which the origin server intends that an entity should no longer be returned by a cache without further validation.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-405' />
+heuristic expiration time</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-408' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-411' />
+An expiration time assigned by a cache when no explicit expiration time is available. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-414' />
+age</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-417' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-420' />
+The age of a response is the time since it was sent by, or successfully validated with, the origin server. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-423' />
+freshness lifetime</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-426' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-429' />
+The length of time between the generation of a response and its expiration time. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-432' />
+fresh</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-435' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-438' />
+A response is fresh if its age has not yet exceeded its freshness lifetime.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-441' />
+stale</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-444' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-447' />
+A response is stale if its age has passed its freshness lifetime.</div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-450' />
+semantically transparent</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-453' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-456' />
+A cache behaves in a "semantically transparent" manner, with respect to a particular response, when its use affects neither the requesting client nor the origin server, except to improve performance. When a cache is semantically transparent, the client receives exactly the same response (except for hop-by-hop headers) that it would have received had its request been handled directly by the origin server. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-459' />
+validator</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-462' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-465' />
+A protocol element (e.g., an entity tag or a Last-Modified time) that is used to find out whether a cache entry is an equivalent copy of an entity. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-468' />
+upstream/downstream</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-471' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-474' />
+Upstream and downstream describe the flow of a message: all messages flow from upstream to downstream. </div>
+</td>
+</tr>
+<tr><td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-477' />
+inbound/outbound</div>
+</td>
+
+<td align='center' valign='top'><div class="plain_layout"><a id='magicparlabel-480' />
+</div>
+</td>
+
+<td align='left' valign='top'><div class="plain_layout"><a id='magicparlabel-483' />
+Inbound and outbound refer to the request and response paths for messages: "inbound" means "traveling toward the origin server", and "outbound" means "traveling toward the user agent" </div>
+</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<h3 class="subsection"><span class="subsection_label">1.4</span> <a id='magicparlabel-484' />
+Overall Operation</h3>
+<div class="standard"><a id='magicparlabel-485' />
+The HTTP protocol is a request/response protocol. A client sends a request to the server in the form of a request method, URI, and protocol version, followed by a MIME-like message containing request modifiers, client information, and possible body content over a connection with a server. The server responds with a status line, including the message's protocol version and a success or error code, followed by a MIME-like message containing server information, entity metainformation, and possible entity-body content. The relationship between HTTP and MIME is described in appendix 19.4.</div>
+
+<div class="standard"><a id='magicparlabel-486' />
+Most HTTP communication is initiated by a user agent and consists of a request to be applied to a resource on some origin server. In the simplest case, this may be accomplished via a single connection (v) between the user agent (UA) and the origin server (O).</div>
+
+<div class="lyx_code"><div class="lyx_code_item"><a id='magicparlabel-487' />
+ request chain &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&gt;        </div>
+<div class="lyx_code_item"><a id='magicparlabel-488' />
+UA &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-v&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- O        </div>
+<div class="lyx_code_item"><a id='magicparlabel-489' />
+  &lt;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash; response chain</div>
+</div>
+<div class="standard"><a id='magicparlabel-490' />
+A more complicated situation occurs when one or more intermediaries are present in the request/response chain. There are three common forms of intermediary: proxy, gateway, and tunnel. A proxy is a forwarding agent, receiving requests for a URI in its absolute form, rewriting all or part of the message, and forwarding the reformatted request toward the server identified by the URI. A gateway is a receiving agent, acting as a layer above some other server(s) and, if necessary, translating the requests to the underlying server's protocol. A tunnel acts as a relay point between two connections without changing the messages; tunnels are used when the communication needs to pass through an intermediary (such as a firewall) even when the intermediary cannot understand the contents of the messages. </div>
+
+<div class="lyx_code"><div class="lyx_code_item"><a id='magicparlabel-491' />
+ request chain &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;&gt;</div>
+<div class="lyx_code_item"><a id='magicparlabel-492' />
+UA &mdash;&ndash;v&mdash;&ndash; A &mdash;&ndash;v&mdash;&ndash; B &mdash;&ndash;v&mdash;&ndash; C &mdash;&ndash;v&mdash;&ndash; O</div>
+<div class="lyx_code_item"><a id='magicparlabel-493' />
+ &lt;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;- response chain </div>
+</div>
+</body>
+</html>

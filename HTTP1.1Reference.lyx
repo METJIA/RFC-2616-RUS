@@ -1,0 +1,1317 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass book
+\use_default_options true
+\maintain_unincluded_children false
+\language russian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\boxbgcolor #5574ff
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Протокол передачи гипертекста HTTP/1.1
+\end_layout
+
+\begin_layout Author
+Русская версия RFC 2616
+\end_layout
+
+\begin_layout Right Address
+перевод: Orel Sokolov (aka vk.com/orelsokolov)
+\end_layout
+
+\begin_layout Subsection*
+Статус этой заметки
+\end_layout
+
+\begin_layout Standard
+Этот документ указывает стандарты track-простокола Интернета для интернет-сообще
+ства, и требует дискуссий и предложений по улучшению.
+ Пожалуйста, обратитесь к текущему изданию 
+\begin_inset Quotes eld
+\end_inset
+
+Internet Official Protocol Standards
+\begin_inset Quotes erd
+\end_inset
+
+ (STD 1) для стандартизации состояния и статуса протокола.
+ На распространение этого документа нет ограничений.
+ 
+\end_layout
+
+\begin_layout Subsection*
+Краткое содержание
+\end_layout
+
+\begin_layout Standard
+Протокол передачи гипертекста (HTTP) является протоколом прикладного уровня
+ для распределенных, совмещеных, гипермедиа информационных систем.
+ Это общий, ничего точно не определяющий, протокол, который может быть использов
+ан для множества задач далеко не похожих на использование для гипертекста,
+ таких как имена серверов и для распределенных систем управления объектами,
+ через расширение методов запросов, коды ошибок и заголовки [47].
+ Чертой HTTP является типизация и согласование представления данных, позволяя
+ системам быть построенными независимо от передаваемых данных.
+\end_layout
+
+\begin_layout Standard
+HTTP используется по глобальной инициативе World-Wide Web начиная с 1990.
+ Эта спецификация определяет протокол, названный 
+\begin_inset Quotes eld
+\end_inset
+
+HTTP/1.1
+\begin_inset Quotes erd
+\end_inset
+
+, и это обновление для RFC 2068.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Введение
+\end_layout
+
+\begin_layout Section
+Назначение
+\end_layout
+
+\begin_layout Standard
+Протокол передачи гипертекста (HTTP) является протоколом прикладного уровня
+ для распределеных, совмещенных, гипермедиа информационных систем.
+ HTTP используется по глобальной инициативе W3 с 1990.
+ Первая версия протокола HTTP, названная как HTTP/0.9, была простым протоколом
+ для необработанной передачи данных через интернет.
+ HTTP/1.0, определенный RFC 1945 [6], улучшил протокол, позволив сообщениям
+ быть в формате MIME-подобных сообщений, содержать метаинформацию о передаваемых
+ данных и имел модифиированную семантику вопросов-ответов.
+ Однако HTTP/1.0 не достаточно учитывает эффекты иерархии прокси, кэширование,
+ потребность в устойчивом соединении, или виртуальных хостов.
+ В дополнение, распространение частично-реализованных приложений на протоколе
+ HTTP/1.0 потребовало сменить версию протокола, чтобы два взаимодействующих
+ приложения могли определить реальные способности каждого.
+ 
+\end_layout
+
+\begin_layout Standard
+Спецификация определяет протокол, названный как "HTTP/1.1
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Этот протокол включает больше строгих требований, чем HTTP/1.0 для того,
+ чтобы гарантировать надежную реализацию его характеристик.
+ 
+\end_layout
+
+\begin_layout Standard
+На практие информационные системы требуют больше функциональности, чем простое
+ извлечение информации, включая поиск, обновление интерфейса, и составление
+ примечаний.
+ HTTP допускает неограниченные набор методов и заголовков, которые раскрывают
+ назначение запроса [47].
+\end_layout
+
+\begin_layout Standard
+Он основывается на порядке ссылок предоставляемых уникальным индентификатором
+ ресурса (URI) [3], расположением (URL)[4], или именем (URN)[20], для индикации
+ ресурса, к которому метод применен.
+ Сообщения передаются в формате похожем на тот, который используется интернетовс
+кой почтой [9], как это определено Multipurpose Internet Mail Extensions
+ (MIME) [7].
+\end_layout
+
+\begin_layout Standard
+HTTP также используется как основной протокол для связи между user-агентами
+ и прокси/шлюзами в другие интернет системы, включая поддержку тех с помощью
+ протоколов SMTP [16], NNTP[13], FTP[18], Gopher[2], и WAIS[10].
+ В этом случае, HTTP разрешает базовый гипермедия доступ к ресурсам, доступным
+ из разных приложений.
+ 
+\end_layout
+
+\begin_layout Section
+Требования
+\end_layout
+
+\begin_layout Standard
+Ключевые слова "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+ "SHOULD NOT", "RECOMMENDED", "MAY", и "OPTIONAL" в этом документе дожны
+ интерпретироваться как описано в 
+\color blue
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC 2119 [34]"
+target "http://rfc2616-rus.narod2.ru/rfc2119.xhtml"
+
+\end_inset
+
+
+\color inherit
+.
+\end_layout
+
+\begin_layout Standard
+Реализация не является совместимой, если она не удовлетворяет одному или
+ более MUST или REQUIRED уровням требований для реализуемого протокола.
+ Реализация, которая удовлетворяет всем MUST или REQUIRED уровням и всем
+ SHOULD уровням требований для этого протокола называется 
+\begin_inset Quotes eld
+\end_inset
+
+безусловно совместимой
+\begin_inset Quotes erd
+\end_inset
+
+; та, что удовлетворяет всем MUST уровням требований, но не всем SHOULD
+ уровням требований для этого протокола, называется 
+\begin_inset Quotes eld
+\end_inset
+
+условно совместимой
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Терминология
+\end_layout
+
+\begin_layout Standard
+This specification uses a number of terms to refer to the roles played by
+ participants in, and objects of, the HTTP communication.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="30" columns="3">
+<features islongtable="true" longtabularalignment="center">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="left" valignment="top" width="10cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Термин (оригинальный)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Русское соответствие
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Значение
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+connection
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+соединение
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Виртуальный канал транспортного уровня, установленный между двумя программами
+ с целью общения.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+message
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+сообщение
+\end_layout
+
+\end_inset
+</cell>
+<cell mroffset="1cm" alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Основная единица измерения HTTP коммуникации, состоящая из структурированной
+ последовательности байт, согласованная с синтаксисом, определенным в разделе
+ 4 и переданная через соединение.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+request
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+запрос
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+HTTP сообщение-запрос, как определено в разделе 5.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+response
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ответ
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+HTTP сообщение-ответ, как определено в разделе 6.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+resource
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ресурс
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Сетевой объект или сервис, который может быть идентифицирован с помощью
+ URI, как описано в секции 3.2.
+ Ресурсы могут быть доступны в множестве образов, (например, множественные
+ языки, форматы данных, и разрешения) или изменяться различными способами.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+entity
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+объект
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Информация, переданная как полезная нагрузка запроса или ответа.
+ Объект состоит из метаинформации, в форме объектов-заголовков полей, и
+ контента в форме объекта-тела, как описано в разделе 7.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+representation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+представление
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Объект, включенный в ответ, который является темой для согласования контента,
+ как описано в разделе 12.
+ Здесь может существовать множественное представление, связанное с особыми
+ состояниями ответа.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+content negotiation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+обсуждение контента
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Механизм для указания соответсвующего представления, когда обслуживается
+ запрос, как описано в разделе 12.
+ Представление объектов в любом ответе может быть обсуждено (включая ошибочные
+ ответы).
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+variant
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+вариант
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ресурс может иметь один, или более одного, представлений, связанных с ним
+ в любой доступный момент времени.
+ Каждый из этих представлений названо "варриант".
+ Использование термина 
+\begin_inset Quotes eld
+\end_inset
+
+вариант
+\begin_inset Quotes erd
+\end_inset
+
+ не обезательно означает, что ресурс готов к обсуждать тему контента.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+client
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+клиент
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Программа, которая устанавливает связь с целью отправки запросов.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+user agent
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Клиент, который инициирует запрос.
+ Это часто бывают браузеры, редакторы, пауки (путешествующие по интернету
+ роботы), или другие инструменты конечного пользователя.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+server
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+сервер
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none" width="10cm">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Прикладная программа, которая принимает соединения для обслуживания запросов
+ путем отправки назад ответов.
+ Любая взятая программа может быть способна быть сразу и клиентом и сервером.
+ Наше использование этих терминов относится только к роли, выполняемой программо
+й для особого соединения
+\end_layout
+
+\begin_layout Plain Layout
+Any given program may be capable of being both a client and a server; our
+ use of these terms refers only to the role being performed by the program
+ for a particular connection, rather than to the program's capabilities
+ in general.
+ Likewise, any server may act as an origin server, proxy, gateway, or tunnel,
+ switching behavior based on the nature of each request.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+origin server
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The server on which a given resource resides or is to be created.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+proxy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+прокси
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+An intermediary program which acts as both a server and a client for the
+ purpose of making requests on behalf of other clients.
+ Requests are serviced internally or by passing them on, with possible translati
+on, to other servers.
+ A proxy MUST implement both the client and server requirements of this
+ specification.
+ A "transparent proxy" is a proxy that does not modify the request or response
+ beyond what is required for proxy authentication and identification.
+ A "non-transparent proxy" is a proxy that modifies the request or response
+ in order to provide some added service to the user agent, such as group
+ annotation services, media type transformation, protocol reduction, or
+ anonymity filtering.
+ Except where either transparent or non-transparent behavior is explicitly
+ stated, the HTTP proxy requirements apply to both types of proxies.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+gateway
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+шлюз
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A server which acts as an intermediary for some other server.
+ Unlike a proxy, a gateway receives requests as if it were the origin server
+ for the requested resource; the requesting client may not be aware that
+ it is communicating with a gateway.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+tunnel
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+туннель
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+An intermediary program which is acting as a blind relay between two connections.
+ Once active, a tunnel is not considered a party to the HTTP communication,
+ though the tunnel may have been initiated by an HTTP request.
+ The tunnel ceases to exist when both ends of the relayed connections are
+ closed.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+cache
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+кэш
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A program's local store of response messages and the subsystem that controls
+ its message storage, retrieval, and deletion.
+ A cache stores cacheable responses in order to reduce the response time
+ and network bandwidth consumption on future, equivalent requests.
+ Any client or server may include a cache, though a cache cannot be used
+ by a server that is acting as a tunnel.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+cacheable
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+кэшируемость
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A response is cacheable if a cache is allowed to store a copy of the response
+ message for use in answering subsequent requests.
+ The rules for determining the cacheability of HTTP responses are defined
+ in section 13.
+ Even if a resource is cacheable, there may be additional constraints on
+ whether a cache can use the cached copy for a particular request.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+first-hand
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A response is first-hand if it comes directly and without unnecessary delay
+ from the origin server, perhaps via one or more proxies.
+ A response is also first-hand if its validity has just been checked directly
+ with the origin server.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+explicit expiration time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The time at which the origin server intends that an entity should no longer
+ be returned by a cache without further validation.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+heuristic expiration time
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+An expiration time assigned by a cache when no explicit expiration time
+ is available.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+age
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The age of a response is the time since it was sent by, or successfully
+ validated with, the origin server.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+freshness lifetime
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+The length of time between the generation of a response and its expiration
+ time.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fresh
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A response is fresh if its age has not yet exceeded its freshness lifetime.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+stale
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A response is stale if its age has passed its freshness lifetime.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+semantically transparent
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A cache behaves in a "semantically transparent" manner, with respect to
+ a particular response, when its use affects neither the requesting client
+ nor the origin server, except to improve performance.
+ When a cache is semantically transparent, the client receives exactly the
+ same response (except for hop-by-hop headers) that it would have received
+ had its request been handled directly by the origin server.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+validator
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A protocol element (e.g., an entity tag or a Last-Modified time) that is used
+ to find out whether a cache entry is an equivalent copy of an entity.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+upstream/downstream
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Upstream and downstream describe the flow of a message: all messages flow
+ from upstream to downstream.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+inbound/outbound
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Inbound and outbound refer to the request and response paths for messages:
+ "inbound" means "traveling toward the origin server", and "outbound" means
+ "traveling toward the user agent" 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Overall Operation
+\end_layout
+
+\begin_layout Standard
+The HTTP protocol is a request/response protocol.
+ A client sends a request to the server in the form of a request method,
+ URI, and protocol version, followed by a MIME-like message containing request
+ modifiers, client information, and possible body content over a connection
+ with a server.
+ The server responds with a status line, including the message's protocol
+ version and a success or error code, followed by a MIME-like message containing
+ server information, entity metainformation, and possible entity-body content.
+ The relationship between HTTP and MIME is described in appendix 19.4.
+\end_layout
+
+\begin_layout Standard
+Most HTTP communication is initiated by a user agent and consists of a request
+ to be applied to a resource on some origin server.
+ In the simplest case, this may be accomplished via a single connection
+ (v) between the user agent (UA) and the origin server (O).
+\end_layout
+
+\begin_layout LyX-Code
+ request chain ------------------------>        
+\end_layout
+
+\begin_layout LyX-Code
+UA -------------------v------------------- O        
+\end_layout
+
+\begin_layout LyX-Code
+  <----------------------- response chain
+\end_layout
+
+\begin_layout Standard
+A more complicated situation occurs when one or more intermediaries are
+ present in the request/response chain.
+ There are three common forms of intermediary: proxy, gateway, and tunnel.
+ A proxy is a forwarding agent, receiving requests for a URI in its absolute
+ form, rewriting all or part of the message, and forwarding the reformatted
+ request toward the server identified by the URI.
+ A gateway is a receiving agent, acting as a layer above some other server(s)
+ and, if necessary, translating the requests to the underlying server's
+ protocol.
+ A tunnel acts as a relay point between two connections without changing
+ the messages; tunnels are used when the communication needs to pass through
+ an intermediary (such as a firewall) even when the intermediary cannot
+ understand the contents of the messages.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+ request chain -------------------------------------->
+\end_layout
+
+\begin_layout LyX-Code
+UA -----v----- A -----v----- B -----v----- C -----v----- O
+\end_layout
+
+\begin_layout LyX-Code
+ <------------------------------------- response chain 
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,253 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Ключевые слова для обозначения уровня требований в RFC
+\end_layout
+
+\begin_layout Author
+Перевод на русский язык: Николай Малых 
+\end_layout
+
+\begin_layout Right Address
+nmalykh@bilim.com 
+\end_layout
+
+\begin_layout Subsection*
+Статус документа
+\end_layout
+
+\begin_layout Standard
+Этот документ относится к категории документов BCP (Best Current Practice)
+ для сообщества Internet.
+ Принимаются поправки и предложения, направленные на совершенствование документа.
+ Допускается свободное распространение документа.
+\end_layout
+
+\begin_layout Subsection*
+Тезисы
+\end_layout
+
+\begin_layout Standard
+Во многих документах, описывающих стандарты, используются модальные глаголы
+ для обозначения уровня требований.
+ Такие слова часто выделяются заглавными буквами.
+ В данном документе определяется толкование этих глаголов и производных
+ от них слов в документах IETF.
+ Авторам документов, следующих приведенным здесь требованиям, рекомендуется
+ помещать в начале документов приведенный ниже текст: 
+\end_layout
+
+\begin_layout Quote
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+ "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
+ to be interpreted as described in RFC 21192.
+ 
+\end_layout
+
+\begin_layout Standard
+Отметим, что "сила" этих глаголов зависит от уровня требований использующего
+ их документа.
+ 
+\end_layout
+
+\begin_layout Section
+MUST
+\end_layout
+
+\begin_layout Standard
+- необходимо.
+ Это слово, а также термины требуется (REQUIRED) и нужно (SHALL) используется
+ для требований, которые являются абсолютно необходимыми в данной спецификации.
+ 
+\end_layout
+
+\begin_layout Section
+MUST NOT
+\end_layout
+
+\begin_layout Standard
+- недопустимо Эта фраза или слова SHALL NOT (не позволяется) означают абсолютный
+ запрет в рамках спецификации.
+ 
+\end_layout
+
+\begin_layout Section
+SHOULD
+\end_layout
+
+\begin_layout Standard
+- следует.
+ Это слово, а также глагол рекомендуется (RECOMMENDED) используется для
+ обозначения требований, от выполнения которых можно отказаться при наличии
+ разумных причин.
+ Однако при таком отказе следует помнить о возможных проблемах в результате
+ отказа и принимать взвешенное решение.
+\end_layout
+
+\begin_layout Section
+SHOULD NOT
+\end_layout
+
+\begin_layout Standard
+- не следует.
+ Эта фраза и глагол не рекомендуется (NOT RECOMMENDED) используются применительн
+о к особенностям или функциям, которые допустимы и могут быть полезными,
+ но могут вызывать проблемы.
+ При реализации таких опций следует учитывать возможность возникновения
+ проблем и принимать взвешенное решение.
+ 
+\end_layout
+
+\begin_layout Section
+MAY
+\end_layout
+
+\begin_layout Standard
+- возможно.
+ Это слово, а также прилагательное необязательный (OPTIONAL) обозначают
+ элементы, реализация которых является необязательной.
+ Одни разработчики могут включать такие опции в свою продукцию для расширения
+ возможностей, а другие -опускать в целях упрощения.
+ Реализация, не включающая ту или иную опцию, должна быть готова к работе
+ с реализациями, которые используют эту опцию (возможно совместная работа
+ будет обеспечиваться за счет некоторого ущерба функциональности).
+ Включающие опцию реализации должны быть готовы (естественно, без использования
+ такой опции) к взаимодействию с реализациями, которые такую опцию не поддержива
+ют.
+ 
+\end_layout
+
+\begin_layout Section
+Рекомендации по использованию
+\end_layout
+
+\begin_layout Standard
+Приведенные в этом документе определения следует использовать очень аккуратно.
+ В частности, необходимо применять их лишь там, где это действительно диктуется
+ требованиями интероперабельности или для предотвращения ситуаций, когда
+ может быть нанесен вред (например, для ограничения избыточных повторов
+ передачи).
+ Например, такие обозначения недопустимо использовать для обозначения преимущест
+в одной реализации по сравнению с другой, если это не продиктовано соображениями
+ интероперабельности.
+ 
+\end_layout
+
+\begin_layout Section
+Вопросы безопасности
+\end_layout
+
+\begin_layout Standard
+Рассматриваемые здесь термины часто используются при обсуждении вопросов
+ безопасности.
+ Отказ от выполнения необходимых (MUST) или рекомендуемых (SHOULD) требований
+ или реализация недопустимых (MUST NOT)/нерекомендуемых (SHOULD NOT) может
+ существенно влиять на безопасность.
+ Авторы документов должны уделить внимание вопросам безопасности, чтобы
+ не появлялись реализации с невыполненными требованиями или рекомендациями.
+\end_layout
+
+\begin_layout Section
+Благодарности
+\end_layout
+
+\begin_layout Standard
+Определения терминов даны на основе использования этих терминов во множестве
+ RFC.
+ Кроме того, при подготовке документа были учтены предложения многих людей,
+ включая Robert Ullmann, Thomas Narten, Neal McBurnett, Robert Elz.
+ 
+\end_layout
+
+\begin_layout Section
+Адреса авторов
+\end_layout
+
+\begin_layout Standard
+Scott Bradner Harvard 
+\end_layout
+
+\begin_layout Standard
+University 1350 Mass.
+ 
+\end_layout
+
+\begin_layout Standard
+Ave.
+ Cambridge, MA 
+\end_layout
+
+\begin_layout Standard
+02138 phone - +1 617 495 3864 
+\end_layout
+
+\begin_layout Standard
+email - sob@harvard.edu 
+\end_layout
+
+\end_body
+\end_document
